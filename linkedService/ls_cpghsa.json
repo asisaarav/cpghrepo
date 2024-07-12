@@ -1,0 +1,17 @@
+{
+	"name": "ls_cpghsa",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"sasUri": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "kv_cpgh",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SAScpghsa"
+			}
+		}
+	}
+}
