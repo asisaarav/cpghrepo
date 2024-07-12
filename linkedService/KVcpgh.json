@@ -1,0 +1,10 @@
+{
+	"name": "KVcpgh",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvcpghasa.vault.azure.net/"
+		}
+	}
+}
