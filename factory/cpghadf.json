@@ -1,0 +1,9 @@
+{
+	"name": "cpghadf",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f4ebb07f-0c12-4b26-bf46-1f4aff8fa492",
+		"tenantId": "824f6799-5858-49de-b305-7d70f8a44043"
+	}
+}
