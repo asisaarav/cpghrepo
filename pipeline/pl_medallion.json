@@ -12,7 +12,14 @@
 						{
 							"name": "Execute Pipeline1",
 							"type": "ExecutePipeline",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"secureInput": false
 							},
@@ -24,15 +31,41 @@
 								},
 								"waitOnCompletion": true
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "filename",
+								"value": ""
+							}
 						}
 					]
 				}
 			}
 		],
 		"parameters": {
-			"list_of_datasets": {
+			"list_of_directories": {
 				"type": "string",
 				"defaultValue": "['audit','booking','consent_management','customer','feedback','interactions','transactional']"
+			},
+			"list_of_files": {
+				"type": "string",
+				"defaultValue": "['audit_logs_data.parquet','booking_data.parquet','consent_management_data.parquet','customer_data.csv','feedback_data.parquet',"
+			}
+		},
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"directory": {
+				"type": "String"
 			}
 		},
 		"annotations": []
