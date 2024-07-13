@@ -57,6 +57,10 @@
 									"raw_path": {
 										"value": "@pipeline().parameters.raw_path",
 										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@pipeline().parameters.file_name",
+										"type": "Expression"
 									}
 								}
 							}
