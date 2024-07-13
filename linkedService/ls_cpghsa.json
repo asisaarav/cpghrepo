@@ -4,14 +4,7 @@
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
-			"sasUri": {
-				"type": "AzureKeyVaultSecret",
-				"store": {
-					"referenceName": "kv_cpgh",
-					"type": "LinkedServiceReference"
-				},
-				"secretName": "SAScpghsa"
-			}
+			"url": "https://cpghsa.dfs.core.windows.net/"
 		}
 	}
 }
