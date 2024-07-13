@@ -58,7 +58,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "filename",
+								"variableName": "directory",
 								"value": {
 									"value": "@split(item(),'/')[0]",
 									"type": "Expression"
@@ -82,7 +82,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "directory",
+								"variableName": "filename",
 								"value": {
 									"value": "@split(item(),'/')[1]",
 									"type": "Expression"
