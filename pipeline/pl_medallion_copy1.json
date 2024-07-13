@@ -14,7 +14,7 @@
 					},
 					"activities": [
 						{
-							"name": "Set variable1",
+							"name": "set_directory_name",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
@@ -25,7 +25,31 @@
 							"typeProperties": {
 								"variableName": "filename",
 								"value": {
-									"value": "@split(item(),'/')",
+									"value": "@split(item(),'/')[0]",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "set_filename",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "set_directory_name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "directory",
+								"value": {
+									"value": "@split(item(),'/')[1]",
 									"type": "Expression"
 								}
 							}
@@ -50,6 +74,9 @@
 		},
 		"variables": {
 			"filename": {
+				"type": "String"
+			},
+			"directory": {
 				"type": "String"
 			}
 		},
