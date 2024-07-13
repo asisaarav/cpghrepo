@@ -5,6 +5,8 @@
 			{
 				"name": "extract_to_raw",
 				"type": "Switch",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
@@ -69,8 +71,6 @@
 			{
 				"name": "raw_to_brz",
 				"type": "DatabricksNotebook",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "extract_to_raw",
@@ -111,8 +111,6 @@
 			{
 				"name": "brz_to_slv",
 				"type": "DatabricksNotebook",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "raw_to_brz",
