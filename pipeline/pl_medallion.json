@@ -78,8 +78,7 @@
 				]
 			},
 			"list_of_files": {
-				"type": "array",
-				"defaultValue": "['audit_logs_data.parquet','booking_data.parquet','consent_management_data.parquet','customer_data.csv','feedback_data.parquet',"
+				"type": "array"
 			}
 		},
 		"variables": {
