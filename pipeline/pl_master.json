@@ -1,238 +1,375 @@
 {
-	"name": "pl_master",
+	"name": "pl_medallion",
 	"properties": {
 		"activities": [
 			{
-				"name": "extract_to_raw",
-				"type": "Switch",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
+				"name": "for_each_dataset",
+				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"on": {
-						"value": "@if(equals(pipeline().parameters.source_type, 'adls'), 'Default', 'Other')\r\n",
+					"items": {
+						"value": "@pipeline().parameters.list_of_paths",
 						"type": "Expression"
 					},
-					"cases": [
+					"isSequential": false,
+					"batchCount": 3,
+					"activities": [
 						{
-							"value": "Other",
-							"activities": [
-								{
-									"name": "Wait",
-									"type": "Wait",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"waitTimeInSeconds": 1
-									}
-								}
-							]
-						}
-					],
-					"defaultActivities": [
-						{
-							"name": "execute_pl_child",
+							"name": "Execute Pipeline1",
 							"type": "ExecutePipeline",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "set_filename",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"secureInput": false
 							},
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_adls_child",
+									"referenceName": "pl_master",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"container_name": {
-										"value": "@pipeline().parameters.container_name",
+									"directory": {
+										"value": "@variables('directory')",
 										"type": "Expression"
 									},
-									"landing_path": {
-										"value": "@pipeline().parameters.landing_path",
-										"type": "Expression"
-									},
-									"raw_path": {
-										"value": "@pipeline().parameters.raw_path",
+									"config": {
+										"value": "@pipeline().parameters.config",
 										"type": "Expression"
 									}
+								}
+							}
+						},
+						{
+							"name": "set_directory_name",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "filename",
+								"value": {
+									"value": "@split(item(),'/')[0]",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "set_filename",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "set_directory_name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "directory",
+								"value": {
+									"value": "@split(item(),'/')[1]",
+									"type": "Expression"
 								}
 							}
 						}
 					]
 				}
-			},
-			{
-				"name": "brz_nb",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "extract_to_raw",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": {
-						"value": "@pipeline().parameters.brz_nb_path",
-						"type": "Expression"
-					},
-					"baseParameters": {
-						"directory": {
-							"value": "@pipeline().parameters.directory",
-							"type": "Expression"
-						},
-						"load_type": {
-							"value": "@pipeline().parameters.load_type",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_databricks",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "slv_nb",
-				"type": "DatabricksNotebook",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "brz_nb",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": {
-						"value": "@pipeline().parameters.slv_nb_path",
-						"type": "Expression"
-					},
-					"baseParameters": {
-						"directory": "@pipeline().parameters.directory",
-						"load_type": "@pipeline().parameters.load_type",
-						"file_name": {
-							"value": "@pipeline().parameters.file_name",
-							"type": "Expression"
-						},
-						"config": {
-							"value": "@string(pipeline().parameters.config)",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_databricks",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"parameters": {
-			"landing_path": {
-				"type": "string",
-				"defaultValue": "landing"
-			},
-			"container_name": {
-				"type": "string",
-				"defaultValue": "cpghvv"
-			},
-			"segment_grp": {
-				"type": "string"
-			},
-			"file_name": {
-				"type": "string",
-				"defaultValue": "audit_logs_data.parquet"
-			},
-			"brz_nb_path": {
-				"type": "string",
-				"defaultValue": "/Workspace/Shared/generic_raw_to_bronze"
-			},
-			"slv_nb_path": {
-				"type": "string",
-				"defaultValue": "/Workspace/Shared/generic_bronze_to_silver"
-			},
-			"archive_path": {
-				"type": "string"
-			},
-			"source_type": {
-				"type": "string",
-				"defaultValue": "adls"
-			},
-			"brz_load": {
-				"type": "String"
-			},
-			"slv_load": {
-				"type": "String"
-			},
-			"raw_path": {
-				"type": "string",
-				"defaultValue": "raw"
-			},
-			"raw_file_name": {
-				"type": "string"
-			},
-			"directory": {
-				"type": "string",
-				"defaultValue": "audit"
-			},
-			"load_type": {
-				"type": "string",
-				"defaultValue": "overwrite"
+			"list_of_paths": {
+				"type": "array",
+				"defaultValue": [
+					"audit/audit_logs_data.parquet",
+					"booking/booking_data.parquet",
+					"consent_management/consent_management_data.parquet",
+					"customer/customer_data.parquet",
+					"feedback/feedback_data.parquet",
+					"interactions/realtime_interactions_data.parquet",
+					"transactional/transactional_data.parquet"
+				]
 			},
 			"config": {
-				"type": "object",
-				"defaultValue": {
-					"table_name": "audit",
-					"parameters": {
-						"column_mapping": [
-							{
-								"event_id": "int"
-							},
-							{
-								"timestamp": "timestamp"
-							},
-							{
-								"user_id": "string"
-							},
-							{
-								"event_type": "string"
-							},
-							{
-								"description": "string"
-							},
-							{
-								"__created_tsp": "timestamp"
-							},
-							{
-								"__source": "string"
-							}
-						],
-						"key_columns": [],
-						"load_type": "overwrite"
+				"type": "string",
+				"defaultValue": [
+					{
+						"table_name": "audit",
+						"parameters": {
+							"column_mapping": [
+								{
+									"event_id": "int"
+								},
+								{
+									"timestamp": "timestamp"
+								},
+								{
+									"user_id": "string"
+								},
+								{
+									"event_type": "string"
+								},
+								{
+									"description": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "booking",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"booking_id": "int"
+								},
+								{
+									"booking_date": "timestamp"
+								},
+								{
+									"package_type": "string"
+								},
+								{
+									"destination": "string"
+								},
+								{
+									"activity_preferences": "string"
+								},
+								{
+									"website_visits": "int"
+								},
+								{
+									"Searches": "int"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": " consent_management",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"consent_type": "string"
+								},
+								{
+									"consent_given": "string"
+								},
+								{
+									"consent_timestamp": "timestamp"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "customer",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"name": "string"
+								},
+								{
+									"age": "int"
+								},
+								{
+									"gender": "string"
+								},
+								{
+									"location": "string"
+								},
+								{
+									"email": "string"
+								},
+								{
+									"phone": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "feedback",
+						"parameters": {
+							"column_mapping": [
+								{
+									"feedback_id": "int"
+								},
+								{
+									"customer_id": "int"
+								},
+								{
+									"feedback_date": "timestamp"
+								},
+								{
+									"rating": "string"
+								},
+								{
+									"comments": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "interactions",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"interaction_type": "string"
+								},
+								{
+									"interaction_timestamp": "timestamp"
+								},
+								{
+									"interaction_details": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "transactional",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"booking_id": "int"
+								},
+								{
+									"payment_amount": "string"
+								},
+								{
+									"currency": "string"
+								},
+								{
+									"payment_method": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "contextual",
+						"parameters": {
+							"column_mapping": [
+								{
+									"destination": "string"
+								},
+								{
+									"country": "string"
+								},
+								{
+									"region": "string"
+								},
+								{
+									"average_temperature___c_": "string"
+								},
+								{
+									"season": "string"
+								},
+								{
+									"weather_conditions": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
 					}
-				}
+				]
+			}
+		},
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"directory": {
+				"type": "String"
 			}
 		},
 		"annotations": []
