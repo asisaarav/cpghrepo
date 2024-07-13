@@ -38,7 +38,22 @@
 						"value": "@pipeline().parameters.source_type",
 						"type": "Expression"
 					},
-					"cases": [],
+					"cases": [
+						{
+							"value": "Other",
+							"activities": [
+								{
+									"name": "Wait",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
+						}
+					],
 					"defaultActivities": [
 						{
 							"name": "execute_pl_child",
