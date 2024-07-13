@@ -38,7 +38,7 @@
 				"typeProperties": {
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "landing_to_raw",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -55,14 +55,6 @@
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
-										"wildcardFolderPath": {
-											"value": "@pipeline().parameters.landing_path",
-											"type": "Expression"
-										},
-										"wildcardFileName": {
-											"value": "@pipeline().parameters.file_name",
-											"type": "Expression"
-										},
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -72,11 +64,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings",
-										"copyBehavior": {
-											"value": "concat(@pipeline().parameters.raw_path,'/',@pipeline().parameters.raw_file_name)",
-											"type": "Expression"
-										}
+										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -97,13 +85,41 @@
 							"inputs": [
 								{
 									"referenceName": "ds_cpghvv",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"container_name": {
+											"value": "@pipeline().parameters.container_name",
+											"type": "Expression"
+										},
+										"landing_path": {
+											"value": "@pipeline().parameters.landing_path",
+											"type": "Expression"
+										},
+										"file_name": {
+											"value": "@pipeline().parameters.file_name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "ds_cpghvv",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"container_name": {
+											"value": "@pipeline().parameters.container_name",
+											"type": "Expression"
+										},
+										"landing_path": {
+											"value": "@pipeline().parameters.raw_path",
+											"type": "Expression"
+										},
+										"file_name": {
+											"value": "@pipeline().parameters.raw_file_name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -128,6 +144,9 @@
 				"type": "string"
 			},
 			"raw_file_name": {
+				"type": "string"
+			},
+			"container_name": {
 				"type": "string"
 			}
 		},
