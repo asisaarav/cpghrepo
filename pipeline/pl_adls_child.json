@@ -155,25 +155,31 @@
 		],
 		"parameters": {
 			"landing_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "landing/customer"
 			},
 			"segment_grp": {
 				"type": "string"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "customer_data.csv"
 			},
 			"source_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "adls"
 			},
 			"raw_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "raw/customer"
 			},
 			"raw_file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "customer_data.csv"
 			},
 			"container_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "cpghvv"
 			}
 		},
 		"annotations": []
