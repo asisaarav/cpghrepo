@@ -49,27 +49,27 @@
 										"type": "Expression"
 									},
 									"segment_grp": {
-										"value": "@item.segment_grp",
+										"value": "@pipeline().parameters.segment_grp",
 										"type": "Expression"
 									},
 									"file_name": {
-										"value": "@item.file_name",
+										"value": "@pipeline().parameters.file_name",
 										"type": "Expression"
 									},
 									"source_type": {
-										"value": "@item.source_type",
+										"value": "@pipeline().parameters.source_type",
 										"type": "Expression"
 									},
 									"raw_path": {
-										"value": "@item.raw_path",
+										"value": "@pipeline().parameters.raw_path",
 										"type": "Expression"
 									},
 									"raw_file_name": {
-										"value": "@item.raw_file_name",
+										"value": "@pipeline().parameters.raw_file_name",
 										"type": "Expression"
 									},
 									"container_name": {
-										"value": "@item.container_name",
+										"value": "@pipeline().parameters.container_name",
 										"type": "Expression"
 									}
 								}
@@ -202,6 +202,14 @@
 			},
 			"slv_load": {
 				"type": "String"
+			},
+			"raw_path": {
+				"type": "string",
+				"defaultValue": "raw/customer"
+			},
+			"raw_file_name": {
+				"type": "string",
+				"defaultValue": "customer_data.csv"
 			}
 		},
 		"annotations": []
