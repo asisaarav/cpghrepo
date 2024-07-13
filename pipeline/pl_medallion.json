@@ -40,6 +40,10 @@
 									"directory": {
 										"value": "@variables('directory')",
 										"type": "Expression"
+									},
+									"config": {
+										"value": "@pipeline().parameters.config",
+										"type": "Expression"
 									}
 								}
 							}
@@ -100,6 +104,263 @@
 					"feedback",
 					"interactions",
 					"transactional"
+				]
+			},
+			"config": {
+				"type": "string",
+				"defaultValue": [
+					{
+						"table_name": "audit",
+						"parameters": {
+							"column_mapping": [
+								{
+									"event_id": "int"
+								},
+								{
+									"timestamp": "timestamp"
+								},
+								{
+									"user_id": "string"
+								},
+								{
+									"event_type": "string"
+								},
+								{
+									"description": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "booking",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"booking_id": "int"
+								},
+								{
+									"booking_date": "timestamp"
+								},
+								{
+									"package_type": "string"
+								},
+								{
+									"destination": "string"
+								},
+								{
+									"activity_preferences": "string"
+								},
+								{
+									"website_visits": "int"
+								},
+								{
+									"Searches": "int"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": " consent_management",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"consent_type": "string"
+								},
+								{
+									"consent_given": "string"
+								},
+								{
+									"consent_timestamp": "timestamp"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "customer",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"name": "string"
+								},
+								{
+									"age": "int"
+								},
+								{
+									"gender": "string"
+								},
+								{
+									"location": "string"
+								},
+								{
+									"email": "string"
+								},
+								{
+									"phone": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "feedback",
+						"parameters": {
+							"column_mapping": [
+								{
+									"feedback_id": "int"
+								},
+								{
+									"customer_id": "int"
+								},
+								{
+									"feedback_date": "timestamp"
+								},
+								{
+									"rating": "string"
+								},
+								{
+									"comments": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "interactions",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"interaction_type": "string"
+								},
+								{
+									"interaction_timestamp": "timestamp"
+								},
+								{
+									"interaction_details": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "transactional",
+						"parameters": {
+							"column_mapping": [
+								{
+									"customer_id": "int"
+								},
+								{
+									"booking_id": "int"
+								},
+								{
+									"payment_amount": "string"
+								},
+								{
+									"currency": "string"
+								},
+								{
+									"payment_method": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					},
+					{
+						"table_name": "contextual",
+						"parameters": {
+							"column_mapping": [
+								{
+									"destination": "string"
+								},
+								{
+									"country": "string"
+								},
+								{
+									"region": "string"
+								},
+								{
+									"average_temperature___c_": "string"
+								},
+								{
+									"season": "string"
+								},
+								{
+									"weather_conditions": "string"
+								},
+								{
+									"__created_tsp": "timestamp"
+								},
+								{
+									"__source": "string"
+								}
+							],
+							"key_columns": [],
+							"load_type": "overwrite"
+						}
+					}
 				]
 			}
 		},
