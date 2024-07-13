@@ -71,6 +71,8 @@
 			{
 				"name": "raw_to_brz",
 				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "extract_to_raw",
