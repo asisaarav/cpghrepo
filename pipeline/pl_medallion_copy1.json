@@ -1,0 +1,95 @@
+{
+	"name": "pl_medallion_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.list_of_directories",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 3,
+					"activities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_master_copy1",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"directory": {
+										"value": "@variables('directory')",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "directory",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"list_of_directories": {
+				"type": "array",
+				"defaultValue": [
+					"audit",
+					"booking",
+					"consent_management",
+					"customer",
+					"feedback",
+					"interactions",
+					"transactional"
+				]
+			},
+			"list_of_files": {
+				"type": "array"
+			}
+		},
+		"variables": {
+			"filename": {
+				"type": "String"
+			},
+			"directory": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
