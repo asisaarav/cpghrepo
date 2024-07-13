@@ -12,6 +12,7 @@
 						"value": "@pipeline().parameters.list_of_directories",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"batchCount": 3,
 					"activities": [
 						{
@@ -19,7 +20,7 @@
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "set_file_path",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -44,7 +45,8 @@
 							}
 						},
 						{
-							"name": "Set variable1",
+							"name": "set_file_path",
+							"description": "",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
