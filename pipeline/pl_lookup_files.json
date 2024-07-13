@@ -3,36 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_csv",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"dataset": {
-						"referenceName": "ds_cpghvv",
-						"type": "DatasetReference"
-					}
-				}
-			},
-			{
 				"name": "dbx bronze",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
@@ -90,36 +60,11 @@
 										"type": "DelimitedTextReadSettings"
 									}
 								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".csv"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
 									"referenceName": "ds_cpghvv",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "ds_cpgaudit",
 									"type": "DatasetReference"
 								}
 							]
@@ -140,6 +85,31 @@
 				"userProperties": []
 			}
 		],
+		"parameters": {
+			"landing_path": {
+				"type": "string"
+			},
+			"container_name": {
+				"type": "string",
+				"defaultValue": "cpghvv"
+			},
+			"segment_grp": {
+				"type": "string",
+				"defaultValue": "customer"
+			},
+			"file_name": {
+				"type": "string"
+			},
+			"brz_nb_path": {
+				"type": "string"
+			},
+			"slv_nb_path": {
+				"type": "string"
+			},
+			"archive_path": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
