@@ -3,13 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
+				"name": "for_each_dataset",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.list_of_directories",
+						"value": "@pipeline().parameters.list_of_paths",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -20,7 +20,7 @@
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
-									"activity": "set_file_path",
+									"activity": "set_filename",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -45,8 +45,7 @@
 							}
 						},
 						{
-							"name": "set_file_path",
-							"description": "",
+							"name": "set_directory_name",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
@@ -55,9 +54,33 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"variableName": "filename",
+								"value": {
+									"value": "@split(item(),'/')[0]",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "set_filename",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "set_directory_name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
 								"variableName": "directory",
 								"value": {
-									"value": "@item()",
+									"value": "@split(item(),'/')[1]",
 									"type": "Expression"
 								}
 							}
@@ -67,7 +90,7 @@
 			}
 		],
 		"parameters": {
-			"list_of_directories": {
+			"list_of_paths": {
 				"type": "array",
 				"defaultValue": [
 					"audit",
@@ -77,18 +100,6 @@
 					"feedback",
 					"interactions",
 					"transactional"
-				]
-			},
-			"list_of_files": {
-				"type": "array",
-				"defaultValue": [
-					"audit/audit_logs_data.parquet",
-					"booking/booking_data.parquet",
-					"consent_management/consent_management_data.parquet",
-					"customer/customer_data.parquet",
-					"feedback/feedback_data.parquet",
-					"interactions/realtime_interactions_data.parquet",
-					"transactional/transactional_data.parquet"
 				]
 			}
 		},
