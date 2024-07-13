@@ -169,7 +169,8 @@
 		],
 		"parameters": {
 			"landing_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "landing/customer"
 			},
 			"container_name": {
 				"type": "string",
@@ -180,7 +181,8 @@
 				"defaultValue": "customer"
 			},
 			"file_name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "customer_data.csv"
 			},
 			"brz_nb_path": {
 				"type": "string"
@@ -192,7 +194,8 @@
 				"type": "string"
 			},
 			"source_type": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "adls"
 			},
 			"brz_load": {
 				"type": "String"
