@@ -63,8 +63,8 @@
 				}
 			},
 			{
-				"name": "If_load_to_bronze",
-				"type": "IfCondition",
+				"name": "brz_nb",
+				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
 						"activity": "extract_to_raw",
@@ -73,89 +73,65 @@
 						]
 					}
 				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@equals(pipeline().parameters.brz_load,'y' )",
+					"notebookPath": {
+						"value": "@pipeline().parameters.brz_nb_path",
 						"type": "Expression"
 					},
-					"ifTrueActivities": [
-						{
-							"name": "brz_nb",
-							"type": "DatabricksNotebook",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"notebookPath": {
-									"value": "@pipeline().parameters.brz_nb_path",
-									"type": "Expression"
-								},
-								"baseParameters": {
-									"brz_nb_path": {
-										"value": "@pipeline().parameters.brz_nb_path",
-										"type": "Expression"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_databricks",
-								"type": "LinkedServiceReference"
-							}
+					"baseParameters": {
+						"directory": {
+							"value": "@pipeline().parameters.directory",
+							"type": "Expression"
+						},
+						"load_type": {
+							"value": "@pipeline().parameters.load_type",
+							"type": "Expression"
 						}
-					]
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference"
 				}
 			},
 			{
-				"name": "If_load_to_silver",
-				"type": "IfCondition",
+				"name": "slv_nb",
+				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "If_load_to_bronze",
+						"activity": "brz_nb",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@equals(pipeline().parameters.slv_load,'y' )",
+					"notebookPath": {
+						"value": "@pipeline().parameters.slv_nb_path",
 						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "slv_nb",
-							"type": "DatabricksNotebook",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"notebookPath": {
-									"value": "@pipeline().parameters.slv_nb_path",
-									"type": "Expression"
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "ls_databricks",
-								"type": "LinkedServiceReference"
-							}
-						}
-					]
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
