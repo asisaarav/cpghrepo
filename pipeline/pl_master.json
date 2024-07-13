@@ -16,7 +16,7 @@
 					"batchCount": 3,
 					"activities": [
 						{
-							"name": "Execute Pipeline1",
+							"name": "extract_data_from_source_till_silver",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
