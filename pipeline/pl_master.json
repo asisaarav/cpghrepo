@@ -1,5 +1,5 @@
 {
-	"name": "pl_medallion",
+	"name": "pl_master",
 	"properties": {
 		"activities": [
 			{
@@ -32,7 +32,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_master",
+									"referenceName": "pl_medallionize",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
