@@ -37,6 +37,10 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
+									"file_name": {
+										"value": "@variables('filename')",
+										"type": "Expression"
+									},
 									"directory": {
 										"value": "@variables('directory')",
 										"type": "Expression"
