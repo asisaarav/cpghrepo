@@ -19,7 +19,8 @@
 						"type": "BinarySource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
-							"recursive": true
+							"recursive": true,
+							"deleteFilesAfterCompletion": false
 						},
 						"formatSettings": {
 							"type": "BinaryReadSettings"
@@ -77,6 +78,9 @@
 			},
 			"raw_path": {
 				"type": "String"
+			},
+			"file_name": {
+				"type": "string"
 			}
 		},
 		"annotations": []
