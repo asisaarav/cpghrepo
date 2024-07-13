@@ -1,0 +1,40 @@
+{
+	"name": "pl_medallion",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"activities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pl_master",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"list_of_datasets": {
+				"type": "string",
+				"defaultValue": "['audit','booking','consent_management','customer','feedback','interactions','transactional']"
+			}
+		},
+		"annotations": []
+	}
+}
