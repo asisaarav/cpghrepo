@@ -65,7 +65,7 @@
 				}
 			},
 			{
-				"name": "brz_nb",
+				"name": "raw_to_brz",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -105,13 +105,13 @@
 				}
 			},
 			{
-				"name": "slv_nb",
+				"name": "brz_to_slv",
 				"type": "DatabricksNotebook",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "brz_nb",
+						"activity": "raw_to_brz",
 						"dependencyConditions": [
 							"Succeeded"
 						]
