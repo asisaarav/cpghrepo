@@ -103,7 +103,8 @@
 					"customer/customer_data.parquet",
 					"feedback/feedback_data.parquet",
 					"interactions/realtime_interactions_data.parquet",
-					"transactional/transactional_data.parquet"
+					"transactional/transactional_data.parquet",
+					"contextual/contextual_data.parquet"
 				]
 			},
 			"config": {
