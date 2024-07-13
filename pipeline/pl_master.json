@@ -42,7 +42,37 @@
 									"referenceName": "pl_adls_child",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"landing_path": {
+										"value": "@item.landing_path",
+										"type": "Expression"
+									},
+									"segment_grp": {
+										"value": "@item.segment_grp",
+										"type": "Expression"
+									},
+									"file_name": {
+										"value": "@item.file_name",
+										"type": "Expression"
+									},
+									"source_type": {
+										"value": "@item.source_type",
+										"type": "Expression"
+									},
+									"raw_path": {
+										"value": "@item.raw_path",
+										"type": "Expression"
+									},
+									"raw_file_name": {
+										"value": "@item.raw_file_name",
+										"type": "Expression"
+									},
+									"container_name": {
+										"value": "@item.container_name",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
@@ -105,6 +135,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.slv_load,'y' )",
+						"type": "Expression"
+					},
 					"ifTrueActivities": [
 						{
 							"name": "slv_nb",
@@ -161,6 +195,9 @@
 				"type": "string"
 			},
 			"brz_load": {
+				"type": "String"
+			},
+			"slv_load": {
 				"type": "String"
 			}
 		},
