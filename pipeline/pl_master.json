@@ -61,6 +61,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().parameters.brz_load,'y' )",
+						"type": "Expression"
+					},
 					"ifTrueActivities": [
 						{
 							"name": "brz_nb",
@@ -155,6 +159,9 @@
 			},
 			"source_type": {
 				"type": "string"
+			},
+			"brz_load": {
+				"type": "String"
 			}
 		},
 		"annotations": []
