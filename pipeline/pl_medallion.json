@@ -80,7 +80,16 @@
 				]
 			},
 			"list_of_files": {
-				"type": "array"
+				"type": "array",
+				"defaultValue": [
+					"audit/audit_logs_data.parquet",
+					"booking/booking_data.parquet",
+					"consent_management/consent_management_data.parquet",
+					"customer/customer_data.parquet",
+					"feedback/feedback_data.parquet",
+					"interactions/realtime_interactions_data.parquet",
+					"transactional/transactional_data.parquet"
+				]
 			}
 		},
 		"variables": {

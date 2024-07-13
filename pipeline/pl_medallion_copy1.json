@@ -8,42 +8,7 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@pipeline().parameters.list_of_directories",
-						"type": "Expression"
-					},
-					"isSequential": false,
-					"batchCount": 3,
 					"activities": [
-						{
-							"name": "Execute Pipeline1",
-							"type": "ExecutePipeline",
-							"dependsOn": [
-								{
-									"activity": "Set variable1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_master_copy1",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"file_name": {
-										"value": "@item()",
-										"type": "Expression"
-									}
-								}
-							}
-						},
 						{
 							"name": "Set variable1",
 							"type": "SetVariable",
@@ -54,9 +19,9 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "directory",
+								"variableName": "filename",
 								"value": {
-									"value": "@item()",
+									"value": "@split(item(),'/')",
 									"type": "Expression"
 								}
 							}
@@ -81,9 +46,6 @@
 		},
 		"variables": {
 			"filename": {
-				"type": "String"
-			},
-			"directory": {
 				"type": "String"
 			}
 		},
