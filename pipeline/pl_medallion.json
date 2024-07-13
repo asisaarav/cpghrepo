@@ -5,16 +5,13 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Set variable2",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.list_of_directories",
+						"type": "Expression"
+					},
 					"batchCount": 3,
 					"activities": [
 						{
@@ -37,7 +34,13 @@
 									"referenceName": "pl_master",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"directory": {
+										"value": "@variables('directory')",
+										"type": "Expression"
+									}
+								}
 							}
 						},
 						{
@@ -50,35 +53,24 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "filename",
-								"value": ""
+								"variableName": "directory",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
 							}
 						}
 					]
-				}
-			},
-			{
-				"name": "Set variable2",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "filename",
-					"value": ""
 				}
 			}
 		],
 		"parameters": {
 			"list_of_directories": {
-				"type": "string",
+				"type": "array",
 				"defaultValue": "['audit','booking','consent_management','customer','feedback','interactions','transactional']"
 			},
 			"list_of_files": {
-				"type": "string",
+				"type": "array",
 				"defaultValue": "['audit_logs_data.parquet','booking_data.parquet','consent_management_data.parquet','customer_data.csv','feedback_data.parquet',"
 			}
 		},
