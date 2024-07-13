@@ -3,39 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "dbx bronze",
-				"type": "DatabricksNotebook",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": []
-			},
-			{
-				"name": "dbx silver",
-				"type": "DatabricksNotebook",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": []
-			},
-			{
 				"name": "extract_to_raw",
 				"type": "Switch",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"on": {
-						"value": "@pipeline().parameters.source_type",
+						"value": "@if(equals(pipeline().parameters.source_type, 'adls'), 'Default', 'Other')\r\n",
 						"type": "Expression"
 					},
 					"cases": [
