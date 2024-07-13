@@ -39,37 +39,21 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_adls_child_old",
+									"referenceName": "pl_adls_child",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
 								"parameters": {
+									"container_name": {
+										"value": "@pipeline().parameters.container_name",
+										"type": "Expression"
+									},
 									"landing_path": {
 										"value": "@pipeline().parameters.landing_path",
 										"type": "Expression"
 									},
-									"segment_grp": {
-										"value": "@pipeline().parameters.segment_grp",
-										"type": "Expression"
-									},
-									"file_name": {
-										"value": "@pipeline().parameters.file_name",
-										"type": "Expression"
-									},
-									"source_type": {
-										"value": "@pipeline().parameters.source_type",
-										"type": "Expression"
-									},
 									"raw_path": {
 										"value": "@pipeline().parameters.raw_path",
-										"type": "Expression"
-									},
-									"raw_file_name": {
-										"value": "@pipeline().parameters.raw_file_name",
-										"type": "Expression"
-									},
-									"container_name": {
-										"value": "@pipeline().parameters.container_name",
 										"type": "Expression"
 									}
 								}
