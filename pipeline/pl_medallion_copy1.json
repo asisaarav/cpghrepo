@@ -37,8 +37,8 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"directory": {
-										"value": "@variables('directory')",
+									"file_name": {
+										"value": "@item()",
 										"type": "Expression"
 									}
 								}
@@ -69,17 +69,14 @@
 			"list_of_directories": {
 				"type": "array",
 				"defaultValue": [
-					"audit",
-					"booking",
-					"consent_management",
-					"customer",
-					"feedback",
-					"interactions",
-					"transactional"
+					"audit/audit_logs_data.parquet",
+					"booking/booking_data.parquet",
+					"consent_management/consent_management_data.parquet",
+					"customer/customer_data.parquet",
+					"feedback/feedback_data.parquet",
+					"interactions/realtime_interactions_data.parquet",
+					"transactional/transactional_data.parquet"
 				]
-			},
-			"list_of_files": {
-				"type": "array"
 			}
 		},
 		"variables": {

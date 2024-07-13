@@ -131,7 +131,7 @@
 						"type": "Expression"
 					},
 					"baseParameters": {
-						"directory": "@pipeline().parameters.directory",
+						"directory": "",
 						"loadtype": "@pipeline().parameters.load_type",
 						"filename": {
 							"value": "@pipeline().parameters.file_name",
