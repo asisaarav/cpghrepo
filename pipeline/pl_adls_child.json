@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('files').output.itemName",
+						"value": "@activity('files').output",
 						"type": "Expression"
 					},
 					"activities": [
