@@ -127,6 +127,8 @@
 						{
 							"name": "slv_nb",
 							"type": "DatabricksNotebook",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -154,22 +156,21 @@
 		"parameters": {
 			"landing_path": {
 				"type": "string",
-				"defaultValue": "landing/customer"
+				"defaultValue": "landing"
 			},
 			"container_name": {
 				"type": "string",
 				"defaultValue": "cpghvv"
 			},
 			"segment_grp": {
-				"type": "string",
-				"defaultValue": "customer"
+				"type": "string"
 			},
 			"file_name": {
-				"type": "string",
-				"defaultValue": "customer_data.csv"
+				"type": "string"
 			},
 			"brz_nb_path": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "/Workspace/Shared/generic_raw_to_bronze"
 			},
 			"slv_nb_path": {
 				"type": "string"
@@ -189,11 +190,16 @@
 			},
 			"raw_path": {
 				"type": "string",
-				"defaultValue": "raw/customer"
+				"defaultValue": "raw"
 			},
 			"raw_file_name": {
-				"type": "string",
-				"defaultValue": "customer_data.csv"
+				"type": "string"
+			},
+			"directory": {
+				"type": "string"
+			},
+			"load_type": {
+				"type": "string"
 			}
 		},
 		"annotations": []
