@@ -136,6 +136,10 @@
 						"file_name": {
 							"value": "@pipeline().parameters.file_name",
 							"type": "Expression"
+						},
+						"config": {
+							"value": "@pipeline().parameters.config",
+							"type": "Expression"
 						}
 					}
 				},
