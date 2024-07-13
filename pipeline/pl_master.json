@@ -39,7 +39,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_adls_child",
+									"referenceName": "pl_adls_child_old",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
