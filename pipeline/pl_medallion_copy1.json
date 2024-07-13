@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.list_of_directories",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Set variable1",
