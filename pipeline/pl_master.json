@@ -45,7 +45,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"landing_path": {
-										"value": "@item.landing_path",
+										"value": "@pipeline().parameters.landing_path",
 										"type": "Expression"
 									},
 									"segment_grp": {
