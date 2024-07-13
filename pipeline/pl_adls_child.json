@@ -22,6 +22,7 @@
 					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -54,6 +55,14 @@
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
+										"wildcardFolderPath": {
+											"value": "@pipeline().parameters.landing_path",
+											"type": "Expression"
+										},
+										"wildcardFileName": {
+											"value": "@pipeline().parameters.file_name",
+											"type": "Expression"
+										},
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -63,7 +72,11 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": {
+											"value": "concat(@pipeline().parameters.raw_path,'/',@pipeline().parameters.raw_file_name)",
+											"type": "Expression"
+										}
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -98,6 +111,26 @@
 				}
 			}
 		],
+		"parameters": {
+			"landing_path": {
+				"type": "string"
+			},
+			"segment_grp": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			},
+			"source_type": {
+				"type": "string"
+			},
+			"raw_path": {
+				"type": "string"
+			},
+			"raw_file_name": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
