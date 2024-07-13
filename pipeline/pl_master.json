@@ -96,6 +96,12 @@
 								"notebookPath": {
 									"value": "@pipeline().parameters.brz_nb_path",
 									"type": "Expression"
+								},
+								"baseParameters": {
+									"brz_nb_path": {
+										"value": "@pipeline().parameters.brz_nb_path",
+										"type": "Expression"
+									}
 								}
 							},
 							"linkedServiceName": {
