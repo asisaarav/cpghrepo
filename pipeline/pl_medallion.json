@@ -67,7 +67,15 @@
 		"parameters": {
 			"list_of_directories": {
 				"type": "array",
-				"defaultValue": "['audit','booking','consent_management','customer','feedback','interactions','transactional']"
+				"defaultValue": [
+					"audit",
+					"booking",
+					"consent_management",
+					"customer",
+					"feedback",
+					"interactions",
+					"transactional"
+				]
 			},
 			"list_of_files": {
 				"type": "array",

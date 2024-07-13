@@ -67,8 +67,6 @@
 			{
 				"name": "brz_nb",
 				"type": "DatabricksNotebook",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "extract_to_raw",
@@ -109,6 +107,8 @@
 			{
 				"name": "slv_nb",
 				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "brz_nb",
